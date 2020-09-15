@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Palandromer
 {
-    class Program
+    class PalandromeUtils
     {
         //Function to determine whether a string is a palandrome (uses the FindPalandromes method, since I wrote it first)
         static bool IsPalandrome(string s, bool ignore)
@@ -28,21 +28,16 @@ namespace Palandromer
         {
             //declare a list to populate with all palandromes from the input string
             List<string> palandromeList = new List<string>(); 
-
             //Alter string to ignore spaces when digging for palandromes, if user so chooses
             if (ignore == true)     
             {
-                s = s.Replace(" ", "");
+                s = s.Replace(" ", String.Empty);
             }
-
-            
             string substring = "";      //declare a variable to continuously overwrite until a palandrome reaches its edges
             for (int i = 1; i < s.Length-2; i++)       //start a loop to that runs over each char in the string until it finds the same char(s) continuing in opposite directions
             {
                 int testAbove = i + 1;
                 int testBelow = i - 1;
-
-
                 //check for duplicate letters, and adjust bounds
                 if (testAbove <= s.Length - 1 && testBelow >= 0)
                 {
@@ -55,7 +50,6 @@ namespace Palandromer
                         testBelow--;
                     }
                 }
-
                 //this loop rewrites the 'substring' variable until it reaches the end of a detected palandrome, then adds it to the palandrome list
                 if (testAbove <= s.Length-1 && testBelow >= 0)
                 {
@@ -68,17 +62,14 @@ namespace Palandromer
                              testBelow--;
                         }
                         palandromeList.Add(substring);
-                        
                     }
                 }
             }
             return palandromeList;
-            
         }
-        
+    
         static void Main(string[] args)
         {
-
             bool isPalandrome = false;
             bool yesNo = false;
             string ignoreSpaces = "";
@@ -90,9 +81,7 @@ namespace Palandromer
             {
                 yesNo = true;
             }
-
             isPalandrome = IsPalandrome(s, yesNo);
-
             //First display whether the string is or contains palandromes
             if (isPalandrome == true)
             {
@@ -102,14 +91,12 @@ namespace Palandromer
             {
                 Console.WriteLine("\nThere are no palandromes in the given string.");
             }
-
             //Then list the palandromes
             List<string> palandromes = FindPalandromes(s, yesNo);
             foreach(string strings in palandromes)
             {
                 Console.WriteLine(strings);
             }
-
             //Highlight the longest palandrome in the list
             string longest = "";
             foreach (string d in palandromes)
